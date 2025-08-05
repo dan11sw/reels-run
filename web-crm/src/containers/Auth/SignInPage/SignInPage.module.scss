@@ -1,0 +1,51 @@
+@import "../../../styles/mixins.scss";
+@import "../../../styles/variables.scss";
+
+.page {
+    background-image: url("../../../assets/images/auth_background.png") !important;
+    background-position: center;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    @include flex-block();
+
+    margin: 0 auto;
+    width: 300px;
+}
+
+.form {
+    @include flex-block();
+
+    .title {
+        @include flex-block();
+        align-items: center;
+
+        p {
+            font-size: 36px;
+        }
+    }
+
+    .control {
+        @include flex-block(column, 16px);
+
+        .btnAuth {
+            margin-top: 24px;
+        }
+    }
+}
+
+.imgLogo {
+    width: 40%;
+}

@@ -1,0 +1,85 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.container {
+    @include flex-block(column, 32px);
+    align-items: center;
+    margin: 8px 128px;
+}
+
+.params {
+    @include flex-block(row, 32px);
+}
+
+.column {
+    @include flex-block(column, 16px);
+    width: 300px;
+}
+
+.columnModal {
+    @include flex-block(column, 4px);
+
+    p {
+        margin: 0;
+        padding: 0;
+
+        font-size: 18px;
+    }
+
+}
+
+.inputDateTime {
+    height: 34px !important;
+}
+
+.rowItem {
+    @include flex-block(row, 32px);
+
+    height: 54px;
+    font-size: 18px;
+    padding-left: 5px;
+}
+
+.rowItemHover {
+    @extend .rowItem;
+    background-color: rgb(122, 122, 192);
+}
+
+.rowItemSelect {
+    @extend .rowItem;
+    background-color: rgb(62, 62, 171);
+}
+
+.row {
+    @include flex-block(row, 8px);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.rowCell {
+    @include flex-block();
+    width: 140px;
+    padding: 8px;
+    justify-content: center;
+    // border: 1px solid #ccc;
+
+    p {
+        width: max-content;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        word-wrap: break-word;
+
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        display: -webkit-box; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+.addIconContainer {
+    @include flex-block();
+    justify-content: center;
+}

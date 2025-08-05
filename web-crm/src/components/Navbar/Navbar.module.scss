@@ -1,0 +1,17 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.navbar {
+    @include flex-block(row-reverse, 64px);
+    align-items: center;
+    position: relative;
+    height: max-content;
+    padding: 24px 128px;
+}
+
+.image {
+    @include block-centered-absolute();
+    .logo {
+        width: 64px;
+    }
+}

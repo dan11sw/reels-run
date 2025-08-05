@@ -1,0 +1,50 @@
+.page {
+  background-image: url("../../../assets/images/auth_background.png") !important;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 auto;
+  width: 300px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form .title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.form .title p {
+  font-size: 36px;
+}
+.form .control {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form .control .btnAuth {
+  margin-top: 24px;
+}
+
+.imgLogo {
+  width: 40%;
+}

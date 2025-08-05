@@ -1,0 +1,7 @@
+@import "../../styles/mixins.scss";
+
+.text {
+    @include block-centered-absolute();
+
+    text-align: center;
+}

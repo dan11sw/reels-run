@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.params {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  gap: 32px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  gap: 16px;
+  width: 300px;
+}
+
+.inputDateTime {
+  height: 34px !important;
+}

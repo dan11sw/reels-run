@@ -1,0 +1,18 @@
+@charset "UTF-8";
+/* Подключение шрифтов */
+@font-face {
+  font-family: "Permanent Marker";
+  src: url("../assets/fonts/PermanentMarker-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Proxima-Bold";
+  src: url("../assets/fonts/ProximaSoft-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Proxima-Regular";
+  src: url("../assets/fonts/ProximaSoft-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Proxima-Light";
+  src: url("../assets/fonts/ProximaSoft-Light.ttf") format("truetype");
+}

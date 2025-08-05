@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.column {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.columnCell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  width: 140px;
+  height: 30px;
+}
+.columnCell p {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow: auto;
+}

@@ -1,0 +1,23 @@
+@import "../../../../styles/variables.scss";
+@import "../../../../styles/mixins.scss";
+
+.container {
+    @include flex-block();
+
+    align-items: center;
+}
+
+.params {
+    @include flex-block(row);
+    gap: 32px;
+}
+
+.column {
+    @include flex-block();
+    gap: 16px;
+    width: 300px;
+}
+
+.inputDateTime {
+    height: 34px !important;
+}

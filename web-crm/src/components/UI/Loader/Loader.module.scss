@@ -1,0 +1,40 @@
+@import "../../../styles/mixins.scss";
+
+$width-loader: 5px;
+
+.loadingContainer {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: $width-loader solid rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+
+    @include block-centered-absolute();
+    position: fixed;
+}
+
+.loadingSpinner {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: $width-loader solid transparent;
+    border-top: $width-loader solid rgb(13, 205, 13);
+    border-radius: 50%;
+    animation: spin 1.3s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,19 @@
+@import "../../../../styles/mixins.scss";
+
+.container {
+    width: 100%;
+    height: max-content;
+
+    h2 {
+        text-align: center;
+    }
+}
+
+.quest {
+    @include flex-block(row, 32px);
+}
+
+.map {
+    width: 65%;
+    height: 680px;
+}

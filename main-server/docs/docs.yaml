@@ -1,0 +1,3065 @@
+---
+  openapi: "3.0.0"
+  info: 
+    description: "Данный сервис определяет основные пользовательские функции"
+    title: "Основной игровой сервис"
+    version: "1.0.0"
+    contact: 
+      email: "swdaniel@yandex.ru"
+  externalDocs: 
+    description: "Ссылка на внешнюю документацию"
+    url: "http://localhost:5000/api-docs"
+  paths: 
+    /auth/sign-up: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/SignUpDto"
+          description: "Входные данные"
+          required: true
+        description: "Регистрация пользователя"
+        tags: 
+          - "Авторизация (пользователь)"
+        responses: 
+          201: 
+            description: "Авторизационные данные пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/sign-in: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/SignInDto"
+        description: "Авторизация пользователя"
+        tags: 
+          - "Авторизация (пользователь)"
+        responses: 
+          200: 
+            description: "Авторизационные данные пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/logout: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/LogoutDto"
+        description: "Выход пользователя из системы"
+        tags: 
+          - "Авторизация (пользователь)"
+        responses: 
+          200: 
+            description: "Флаг, определяющий успех операции выхода пользователя из системы"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/SuccessDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/SuccessDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/management/sign-in: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/SignInDto"
+        description: "Авторизация пользователя"
+        tags: 
+          - "Авторизация (для управляющего сайта)"
+        responses: 
+          200: 
+            description: "Авторизационные данные пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/management/logout: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/LogoutDto"
+        description: "Авторизация пользователя"
+        tags: 
+          - "Авторизация (для управляющего сайта)"
+        responses: 
+          200: 
+            description: "Флаг, определяющий успех операции выхода пользователя из системы"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/SuccessDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/SuccessDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/activate: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/ActivationLinkDto"
+          description: "Входные данные"
+          required: true
+        description: "Выход пользователя из системы"
+        tags: 
+          - "Авторизация (пользователь)"
+        responses: 
+          200: 
+            description: "Флаг, определяющий успех операции подтверждения пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/SuccessDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/SuccessDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/refresh/token: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/RefreshDto"
+          description: "Входные данные"
+          required: true
+        description: "Обновление токена доступа"
+        tags: 
+          - "Авторизация (пользователь)"
+        responses: 
+          201: 
+            description: "Авторизационные данные пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/AuthDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /auth/verification: 
+      post: 
+        description: "Верификация пользователя"
+        tags: 
+          - "Авторизация (пользователь)"
+        responses: 
+          200: 
+            description: "Флаг, показывающий статус пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+    /creator/game/create: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/GameCreateDto"
+        description: "Создание новой игры"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GameCreateDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GameCreateDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorGameCreate"
+        security: 
+          - 
+            JWT: []
+    /creator/game/update: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/GameCreateDto"
+        description: "Обновление игры"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GameCreateDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GameCreateDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorGameCreate"
+        security: 
+          - 
+            JWT: []
+    /creator/games/created: 
+      get: 
+        description: "Просмотр списка созданных конкретным создателем игр"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCreatedDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCreatedDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorGamesCreated"
+        security: 
+          - 
+            JWT: []
+    /creator/marks/created: 
+      get: 
+        description: "Просмотр списка созданных конкретным создателем меток"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCreatedDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCreatedDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorGamesCreated"
+        security: 
+          - 
+            JWT: []
+    /creator/game/delete: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/GameDeleteDto"
+          description: "Входные данные"
+          required: true
+        description: "Удаление игры"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCreatedDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCreatedDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorGameDelete"
+        security: 
+          - 
+            JWT: []
+    /creator/mark/add/info: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/MarkAddInfoDto"
+          description: "Входные данные"
+          required: true
+        description: "Добавление новой метки"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          201: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/MarkAddInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/MarkAddInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorMarkAddInfo"
+        security: 
+          - 
+            JWT: []
+    /creator/mark/delete/info: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/MarkDeleteInfoDto"
+        description: "Удаление метки"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          201: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDeleteInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDeleteInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorMarkDeleteInfo"
+        security: 
+          - 
+            JWT: []
+    /creator/mark/add/img: 
+      post: 
+        parameters: 
+          - 
+            name: "input"
+            in: "param"
+            description: "Входные данные"
+            required: true
+            schema: 
+              type: "File"
+        description: "Добавление изображения для метки"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          201: 
+            description: "Выходные данные"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorMarkAddImg"
+        security: 
+          - 
+            JWT: []
+    /creator/mark/delete/img: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/MarkDeleteInfoDto"
+        description: "Удаление изображения метки"
+        tags: 
+          - "Создатель (контент менеджер)"
+        responses: 
+          201: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDeleteInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDeleteInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "creatorMarkDeleteImg"
+        security: 
+          - 
+            JWT: []
+    /geocoder/values: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/GeocoderValuesDto"
+          description: "Входные данные"
+          required: true
+        description: "Конвертация координат (lat; lng) в строковый адрес"
+        tags: 
+          - "Карты"
+        responses: 
+          200: 
+            description: "Адрес по координатам"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GeocoderAddressDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GeocoderAddressDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "geocoderValues"
+        security: 
+          - 
+            JWT: []
+    /map/mark/create: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/MarkCreateDto"
+          description: "Входные данные"
+          required: true
+        description: "Создание новой метки на карте"
+        tags: 
+          - "Карты"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/MarkCreateDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/MarkCreateDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "mapMarkCreate"
+        security: 
+          - 
+            JWT: []
+    /map/marks: 
+      get: 
+        description: "Получение всех меток"
+        tags: 
+          - "Карты"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "mapMarks"
+        security: 
+          - 
+            JWT: []
+    /map/marks/free: 
+      get: 
+        description: "Получение всех свободных меток"
+        tags: 
+          - "Карты"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/MarkDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "mapMarksFree"
+        security: 
+          - 
+            JWT: []
+    /moderator/queue/games: 
+      get: 
+        description: "Создание новой игры"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/QueueGamesDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/QueueGamesDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorQueueGames"
+        security: 
+          - 
+            JWT: []
+    /moderator/creator/info: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/CreatorUsersIdDto"
+          description: "Входные данные"
+          required: true
+        description: "Получение информации о создателе"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/CreatorInfoRDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/CreatorInfoRDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorCreatorInfo"
+        security: 
+          - 
+            JWT: []
+    /moderator/game/info: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/InfoGamesIdDto"
+        description: "Получение информации об игре"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GameInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GameInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorGameInfo"
+        security: 
+          - 
+            JWT: []
+    /moderator/game/accepted: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/InfoGamesIdDto"
+        description: "Одобрение игры"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/InfoGamesIdDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/InfoGamesIdDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorGameAccepted"
+        security: 
+          - 
+            JWT: []
+    /moderator/games/checked: 
+      get: 
+        description: "Список проверенных игр модератором"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCheckedDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCheckedDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorGamesChecked"
+        security: 
+          - 
+            JWT: []
+    /moderator/creators/list: 
+      get: 
+        description: "Список создателей"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCheckedDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesCheckedDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorCreatorsList"
+        security: 
+          - 
+            JWT: []
+    /moderator/game/warning: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/GameWarningDto"
+          description: "Входные данные"
+          required: true
+        description: "Выдача предупреждения игре"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GameWarningDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GameWarningDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorGameWarning"
+        security: 
+          - 
+            JWT: []
+    /moderator/game/ban: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/GameBanDto"
+          description: "Входные данные"
+          required: true
+        description: "Блокировка игры"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GameBanDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GameBanDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorGameBan"
+        security: 
+          - 
+            JWT: []
+    /moderator/game/unban: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/GameUnbanDto"
+          description: "Входные данные"
+          required: true
+        description: "Разблокировка игры"
+        tags: 
+          - "Модератор"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/GameUnbanDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/GameUnbanDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "moderatorGameUnban"
+        security: 
+          - 
+            JWT: []
+    /player/game/status: 
+      get: 
+        description: "Получение информации о текущем статусе игры"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerGameStatus"
+        security: 
+          - 
+            JWT: []
+    /player/games: 
+      get: 
+        description: "Получение информации обо всех играх, которые существуют в настоящее время"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/GamesDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerGames"
+        security: 
+          - 
+            JWT: []
+    /player/info: 
+      get: 
+        description: "Получение информации о пользователе"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Информация о пользователе"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/PlayerInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/PlayerInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerInfo"
+        security: 
+          - 
+            JWT: []
+    /player/info/update: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/PlayerInfoUpdateDto"
+          description: "Новая информация о пользователе"
+          required: true
+        description: "Изменение информации о пользователе"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Новая информация о пользователе"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/PlayerInfoRDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/PlayerInfoRDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerInfoUpdate"
+        security: 
+          - 
+            JWT: []
+    /player/info/img/update: 
+      post: 
+        parameters: 
+          - 
+            name: "input"
+            in: "param"
+            description: "Файл с новым изображением пользователя"
+            required: true
+            schema: 
+              type: "File"
+        description: "Изменение информации о изображении пользователя"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Ссылка на новое изображение пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/UrlDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/UrlDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerInfoImgUpdate"
+        security: 
+          - 
+            JWT: []
+    /player/info/img: 
+      get: 
+        description: "Получение изображения пользователя"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Ссылка на новое изображение пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/UrlDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/UrlDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerInfoImg"
+        security: 
+          - 
+            JWT: []
+    /player/statistics: 
+      get: 
+        description: "Получение игровой статистики пользователя"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Статистика пользователя"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/PlayerStatisticsDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/PlayerStatisticsDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerStatistics"
+        security: 
+          - 
+            JWT: []
+    /player/command: 
+      post: 
+        description: "Получение информации о команде"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Информация о команде"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/CommandInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/CommandInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommand"
+        security: 
+          - 
+            JWT: []
+    /player/command/players: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/CommandsIdDto"
+        description: "Получение информации о игроках в команде"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/CommandPlayersDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/CommandPlayersDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandPlayers"
+        security: 
+          - 
+            JWT: []
+    /player/command/current/game: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/CommandsIdDto"
+        description: "Получение информации о текущей игре, на которую зарегистрирована команда"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Информация о текущей игре"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/CurrentGameInfoDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/CurrentGameInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandCurrentGame"
+        security: 
+          - 
+            JWT: []
+    /player/command/games: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/CommandsIdDto"
+        description: "Получение информации обо всех пройденных играх командой"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandGames"
+        security: 
+          - 
+            JWT: []
+    /player/commands/list: 
+      get: 
+        description: "Получение информации о всех командах, которые зарегистрированы"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/CommandInfoDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/CommandInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandList"
+        security: 
+          - 
+            JWT: []
+    /player/command/detach: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/CommandsIdDto"
+        description: "Выход игрока из команды"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandDetach"
+        security: 
+          - 
+            JWT: []
+    /player/command/create: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/CommandCreateDto"
+          description: "Создание команды"
+          required: true
+        description: "Создание новой команды"
+        tags: 
+          - "Игрок"
+        responses: 
+          201: 
+            description: "Информация о команде"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/CommandCreateDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/CommandCreateDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandCreate"
+        security: 
+          - 
+            JWT: []
+    /player/command/register/game: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/InfoGamesIdDto"
+          description: "Информация для регистрации команды на игру"
+          required: true
+        description: "Регистрация команды на игру"
+        tags: 
+          - "Игрок"
+        responses: 
+          201: 
+            description: "Информация о регистрации команды на игру"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/InfoGamesIdDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/InfoGamesIdDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandRegisterGame"
+        security: 
+          - 
+            JWT: []
+    /player/command/available/games: 
+      get: 
+        description: "Получение списка всех доступных игр"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandAvailableGames"
+        security: 
+          - 
+            JWT: []
+    /player/command/free/list/tag: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/TagDto"
+          description: "Тэг для поиска пользователя"
+          required: true
+        description: "Получение списка свободных игроков по тэгу"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Информация о пользователях"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/TagUserInfoDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/TagUserInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandFreeListTag"
+        security: 
+          - 
+            JWT: []
+    /player/command/join/certain: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/CommandJoinCertainDto"
+          description: "Информация о пользователе и команде"
+          required: true
+        description: "Приглашение пользователя в команду"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Информация о пользователе и команде"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/CommandJoinCertainDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/CommandJoinCertainDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandJoinCertain"
+        security: 
+          - 
+            JWT: []
+    /player/command/join: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/CommandsIdDto"
+          description: "Информация о пользователе и команде"
+          required: true
+        description: "Получение списка свободных игроков по тэгу"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Идентификатор команды"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/CommandsIdDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/CommandsIdDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandJoin"
+        security: 
+          - 
+            JWT: []
+    /player/find/certain: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/TagDto"
+          description: "Информация о пользователе и команде"
+          required: true
+        description: "Получение списка определенных пользователей по тэгу"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/TagUserInfoDto"
+              application/xml: 
+                schema: 
+                  type: "array"
+                  items: 
+                    $ref: "#/components/schemas/TagUserInfoDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerFindCertain"
+        security: 
+          - 
+            JWT: []
+    /player/command/current/media/instructions: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/QuestDto"
+          description: "Информация о пользователе и команде"
+          required: true
+        description: "Текущая видео инструкция"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandCurrentMediaInstructions"
+        security: 
+          - 
+            JWT: []
+    /player/command/add/result: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/CommandAddResultDto"
+          description: "Информация о пользователе и команде"
+          required: true
+        description: "Добавление результата о прохождении задания командой"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerCommandAddResult"
+        security: 
+          - 
+            JWT: []
+    /player/judge/get/info: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/JudgeGetInfoDto"
+          description: "Информация для получения данных о судье"
+          required: true
+        description: "Получение судьёй информации о выполненном квесте"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerJudgeGetInfo"
+        security: 
+          - 
+            JWT: []
+    /player/judge/set/score: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/JudgeSetScoreDto"
+          description: "Информация для получения данных о судье"
+          required: true
+        description: "Добавление оценки выполнения игры"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerJudgeGetInfo"
+        security: 
+          - 
+            JWT: []
+    /player/game/info: 
+      get: 
+        description: "Получение информации о текущей игре"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerGameStatus"
+        security: 
+          - 
+            JWT: []
+    /player/join/game: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/PlayerJoinGameDto"
+          description: "Информация для получения данных об игре"
+          required: true
+        description: "Присоединение игрока к конкретной игре"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerJoinGame"
+        security: 
+          - 
+            JWT: []
+    /player/detach/game: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/PlayerDetachGameDto"
+        description: "Выход игрока из текущей игры"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerJoinGame"
+        security: 
+          - 
+            JWT: []
+    /player/completed/game: 
+      post: 
+        requestBody: 
+          $ref: "#/components/requestBodies/PlayerDetachGameDto"
+        description: "Завершение определённой игры по игровой сессии"
+        tags: 
+          - "Игрок"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "playerJoinGame"
+        security: 
+          - 
+            JWT: []
+    /player/set/result/game/image: 
+      post: 
+        parameters: 
+          - 
+            name: "exec_quests_id"
+            in: "get"
+            description: "Идентификатор процесса игровой сессии"
+            required: false
+            schema: 
+              type: "number"
+          - 
+            name: "type_result"
+            in: "get"
+            description: "Тип результата (изображение / видео)"
+            required: false
+            schema: 
+              type: "string"
+          - 
+            name: "input"
+            in: "param"
+            description: "Входные данные"
+            required: true
+            schema: 
+              type: "File"
+        description: "Добавление результата игры"
+        tags: 
+          - "Игрок"
+        responses: 
+          201: 
+            description: "Выходные данные"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "setResultGameImage"
+        security: 
+          - 
+            JWT: []
+    /security/access: 
+      post: 
+        requestBody: 
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/AccessDto"
+          description: "Входные данные"
+          required: true
+        description: "Проверка доступа пользователя к определённому функциональному модулю"
+        tags: 
+          - "Безопасность"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "securityAccess"
+        security: 
+          - 
+            JWT: []
+    /security/token: 
+      post: 
+        description: "Проверка валидности токена доступа"
+        tags: 
+          - "Безопасность"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "securityToken"
+    /security/user/exists: 
+      post: 
+        description: "Проверка существования пользователя с текущим идентификатором"
+        tags: 
+          - "Безопасность"
+        responses: 
+          200: 
+            description: "Флаг"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/FlagDto"
+          default: 
+            description: "Ошибка запроса"
+            content: 
+              application/json: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+              application/xml: 
+                schema: 
+                  $ref: "#/components/schemas/ApiError"
+        operationId: "securityUserExists"
+  tags: 
+    - 
+      name: "Авторизация (пользователь)"
+      description: "Функции для авторизации пользователя"
+    - 
+      name: "Авторизация (для управляющего сайта)"
+      description: "Функция для авторизации пользователя"
+    - 
+      name: "Создатель (контент менеджер)"
+      description: "Функции для наполнения контентом"
+    - 
+      name: "Карты"
+      description: "Функции для работы с картами"
+    - 
+      name: "Модератор"
+      description: "Функции для модератора"
+    - 
+      name: "Игрок"
+      description: "Функции для взаимодействия с игровой механикой"
+    - 
+      name: "Безопасность"
+      description: "Функции для обеспечения безопасности API"
+  servers: 
+    - 
+      url: "http://localhost:5000"
+    - 
+      url: "https://localhost:5000"
+  components: 
+    requestBodies: 
+      SignInDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/SignInDto"
+        description: "Входные данные"
+        required: true
+      LogoutDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/LogoutDto"
+        description: "Входные данные"
+        required: true
+      MarkDeleteInfoDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/MarkDeleteInfoDto"
+        description: "Входные данные"
+        required: true
+      CommandsIdDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/CommandsIdDto"
+        description: "Идентификатор команды"
+        required: true
+      GameCreateDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/GameCreateDto"
+        description: "Входные данные"
+        required: true
+      InfoGamesIdDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/InfoGamesIdDto"
+        description: "Входные данные"
+        required: true
+      PlayerDetachGameDto: 
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/PlayerDetachGameDto"
+        description: "Информация для получения данных об игре"
+        required: true
+    securitySchemes: 
+      JWT: 
+        type: "apiKey"
+        in: "header"
+        name: "Authorization"
+        description: ""
+    schemas: 
+      ActivationLinkDto: 
+        properties: 
+          activation_link: 
+            type: "string"
+            description: ""
+      AttributeDto: 
+        properties: 
+          read: 
+            type: "boolean"
+            description: ""
+          write: 
+            type: "boolean"
+            description: ""
+          update: 
+            type: "boolean"
+            description: ""
+          delete: 
+            type: "boolean"
+            description: ""
+      AuthDto: 
+        properties: 
+          access_token: 
+            type: "string"
+            description: "Токен доступа"
+          refresh_token: 
+            type: "string"
+            description: "Токен обновления"
+          type_auth: 
+            type: "number"
+            description: "Тип авторизации пользователя"
+          roles: 
+            $ref: "#/components/schemas/RoleDto"
+      LogoutDto: 
+        required: 
+          - "access_token"
+          - "refresh_token"
+          - "type_auth"
+        properties: 
+          access_token: 
+            type: "string"
+            description: ""
+          refresh_token: 
+            type: "string"
+            description: ""
+          type_auth: 
+            type: "number"
+            description: ""
+      RefreshDto: 
+        required: 
+          - "refresh_token"
+        properties: 
+          refresh_token: 
+            type: "string"
+            description: ""
+      RoleDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          value: 
+            type: "string"
+            description: ""
+          priority: 
+            type: "number"
+            description: ""
+      SignInDto: 
+        required: 
+          - "email"
+          - "password"
+        properties: 
+          email: 
+            type: "string"
+            description: ""
+          password: 
+            type: "string"
+            description: ""
+      SignUpDto: 
+        required: 
+          - "email"
+          - "password"
+          - "nickname"
+        properties: 
+          email: 
+            type: "string"
+            description: ""
+          password: 
+            type: "string"
+            description: ""
+          nickname: 
+            type: "string"
+            description: ""
+      TokenDto: 
+        properties: 
+          access_token: 
+            type: "string"
+            description: ""
+          refresh_token: 
+            type: "string"
+            description: ""
+      ContextInfoDto: 
+        properties: 
+          users_id: 
+            type: "number"
+            description: "Идентификатор пользователя"
+          type_auth: 
+            type: "number"
+            description: "Тип авторизации"
+          context_user_data: 
+            type: "string"
+            description: "Данные для контекста"
+      GameCreateDto: 
+        required: 
+          - "title"
+          - "location"
+          - "quests"
+        properties: 
+          title: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          quests: 
+            type: "array"
+            items: 
+              $ref: "#/components/schemas/QuestDto"
+      GameDeleteDto: 
+        properties: 
+          info_games_id: 
+            type: "number"
+            description: "Идентификатор игры"
+      GameUpdateDto: 
+        required: 
+          - "title"
+          - "location"
+          - "quests"
+        properties: 
+          title: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          quests: 
+            type: "array"
+            items: 
+              $ref: "#/components/schemas/QuestDto"
+      GamesCreatedDto: 
+        required: 
+          - "id"
+          - "name"
+          - "max_count_commands"
+          - "date_begin"
+          - "date_end"
+          - "age_limit"
+          - "type"
+          - "rating"
+          - "min_score"
+          - "location"
+          - "created_at"
+          - "updated_at"
+          - "count_points"
+          - "accepted"
+        properties: 
+          id: 
+            type: "number"
+            description: "уникальный идентификатор (обязательное поле)"
+          name: 
+            type: "string"
+            description: "название игры (обязательное поле)"
+          max_count_commands: 
+            type: "number"
+            description: "максимальное количество команд в игре"
+          date_begin: 
+            type: "string"
+            description: "дата начала задания в формате ISO 8601"
+          date_end: 
+            type: "string"
+            description: "дата окончания задания в формате ISO 8601"
+          age_limit: 
+            type: "number"
+            description: "ограничение по возрасту"
+          type: 
+            type: "number"
+            description: "тип задания"
+          rating: 
+            type: "number"
+            description: "рейтинг задания"
+          min_score: 
+            type: "number"
+            description: "минимальный балл для прохождения задания"
+          location: 
+            type: "string"
+            description: "местоположение задания"
+          created_at: 
+            type: "string"
+            description: "дата создания задания в формате ISO 8601"
+          updated_at: 
+            type: "string"
+            description: "дата последнего обновления задания в формате ISO 8601"
+          count_points: 
+            type: "number"
+            description: "количество баллов за прохождение задания"
+          warnings: 
+            type: "array"
+            description: "массив предупреждений"
+            items: {}
+          bans: 
+            type: "array"
+            description: "массив запретов"
+            items: {}
+          accepted: 
+            type: "boolean"
+            description: "флаг, указывающий на принятие задания"
+      MarkAddInfoDto: 
+        properties: 
+          title: 
+            type: "number"
+            description: "Название метки"
+          description: 
+            type: "number"
+            description: "Описание метки"
+          lat: 
+            type: "number"
+            description: "Координата lat метки"
+          lng: 
+            type: "number"
+            description: "Координата lng метки"
+      MarkDeleteInfoDto: 
+        properties: 
+          test_marks_id: 
+            type: "number"
+            description: "Идентификатор метки"
+      QuestDto: 
+        required: 
+          - "task"
+          - "hint"
+          - "radius"
+          - "ref_media"
+          - "marks_id"
+        properties: 
+          task: 
+            type: "string"
+            description: ""
+          hint: 
+            type: "string"
+            description: ""
+          radius: 
+            type: "number"
+            description: ""
+          ref_media: 
+            type: "string"
+            description: ""
+          marks_id: 
+            type: "number"
+            description: ""
+      GeocoderAddressDto: 
+        required: 
+          - "address"
+        properties: 
+          address: 
+            type: "number"
+            description: ""
+      GeocoderValuesDto: 
+        required: 
+          - "lat"
+          - "lng"
+        properties: 
+          lat: 
+            type: "number"
+            description: ""
+          lng: 
+            type: "number"
+            description: ""
+      MarkCreateDto: 
+        required: 
+          - "lat"
+          - "lng"
+          - "location"
+        properties: 
+          lat: 
+            type: "number"
+            description: ""
+          lng: 
+            type: "number"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+      MarkDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          lat: 
+            type: "number"
+            description: ""
+          lng: 
+            type: "number"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+      CreatorInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          surname: 
+            type: "string"
+            description: ""
+          nickname: 
+            type: "string"
+            description: ""
+          ref_image: 
+            type: "string"
+            description: ""
+          phone_num: 
+            type: "string"
+            description: ""
+          date_birthday: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          date_register: 
+            type: "string"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          email: 
+            type: "string"
+            description: ""
+      CreatorInfoRDto: 
+        properties: 
+          info_creator: 
+            $ref: "#/components/schemas/CreatorInfoDto"
+          info_games: 
+            type: "array"
+            items: 
+              $ref: "#/components/schemas/GamesCreatedDto"
+      CreatorUsersIdDto: 
+        properties: 
+          creator_users_id: 
+            type: "number"
+            description: ";"
+      GameBanDto: 
+        required: 
+          - "info_games_id"
+          - "reason"
+        properties: 
+          info_games_id: 
+            type: "number"
+            description: ""
+          reason: 
+            type: "string"
+            description: ""
+      GameInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          max_count_commands: 
+            type: "number"
+            description: ""
+          date_begin: 
+            type: "string"
+            description: ""
+          date_end: 
+            type: "string"
+            description: ""
+          age_limit: 
+            type: "number"
+            description: ""
+          type: 
+            type: "number"
+            description: ""
+          rating: 
+            type: "number"
+            description: ""
+          min_score: 
+            type: "number"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          quests: 
+            type: "array"
+            items: 
+              $ref: "#/components/schemas/QuestInfoDto"
+          status: 
+            type: "number"
+            description: ""
+      GameUnbanDto: 
+        required: 
+          - "info_games_id"
+        properties: 
+          info_games_id: 
+            type: "number"
+            description: ""
+      GameWarningDto: 
+        required: 
+          - "info_games_id"
+          - "reason"
+        properties: 
+          info_games_id: 
+            type: "number"
+            description: ""
+          reason: 
+            type: "string"
+            description: ""
+      GamesCheckedDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          date_begin: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          nickname: 
+            type: "string"
+            description: ""
+          warnings: 
+            type: "array"
+            description: ""
+            items: {}
+          bans: 
+            type: "array"
+            description: ""
+            items: {}
+          accepted: 
+            type: "boolean"
+            description: ""
+      InfoGamesIdDto: 
+        properties: 
+          info_games_id: 
+            type: "number"
+            description: ""
+      QuestInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: "уникальный идентификатор задания"
+          task: 
+            type: "string"
+            description: "описание задания"
+          hint: 
+            type: "string"
+            description: "подсказка к заданию"
+          ref_media: 
+            type: "string"
+            description: "ссылка на дополнительный материал"
+          radius: 
+            type: "number"
+            description: "радиус зоны выполнения задания"
+          created_at: 
+            type: "string"
+            description: "дата и время создания задания"
+          updated_at: 
+            type: "string"
+            description: "дата и время последнего обновления задания"
+          marks_id: 
+            type: "number"
+            description: "идентификатор марки, к которой привязано задание"
+          lat: 
+            type: "number"
+            description: "широта местоположения задания"
+          lng: 
+            type: "number"
+            description: "долгота местоположения задания"
+          location: 
+            type: "string"
+            description: "описание местоположения задания"
+      QueueGamesDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          date_begin: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          nickname: 
+            type: "string"
+            description: ""
+      CommandAddResultDto: 
+        properties: 
+          ref_media: 
+            type: "string"
+            description: ""
+          game_id: 
+            type: "number"
+            description: ""
+      CommandCreateDto: 
+        properties: 
+          name: 
+            type: "string"
+            description: ""
+      CommandInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          date_register: 
+            type: "string"
+            description: ""
+          rating: 
+            type: "number"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          count_players: 
+            type: "number"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+      CommandJoinCertainDto: 
+        properties: 
+          player_users_id: 
+            type: "number"
+            description: ""
+          commands_id: 
+            type: "number"
+            description: ""
+      CommandPlayersDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: "уникальный идентификатор пользователя"
+          name: 
+            type: "string"
+            description: "имя пользователя"
+          surname: 
+            type: "string"
+            description: "фамилия пользователя"
+          nickname: 
+            type: "string"
+            description: "никнейм пользователя"
+          ref_image: 
+            type: "string"
+            description: "ссылка на изображение пользователя"
+          phone_num: 
+            type: "string"
+            description: "номер телефона пользователя"
+          date_birthday: 
+            type: "string"
+            description: "дата рождения пользователя"
+          location: 
+            type: "string"
+            description: "местоположение пользователя"
+          date_register: 
+            type: "string"
+            description: "дата регистрации пользователя"
+          created_at: 
+            type: "string"
+            description: "дата и время создания записи о пользователе"
+          updated_at: 
+            type: "string"
+            description: "дата и время обновления записи о пользователе"
+          users_id: 
+            type: "number"
+            description: "идентификатор пользователя, создавшего запись"
+          rating: 
+            type: "number"
+            description: "рейтинг пользователя"
+          creator: 
+            type: "boolean"
+            description: "является ли пользователь создателем записи"
+      CommandsIdDto: 
+        required: 
+          - "commands_id"
+        properties: 
+          commands_id: 
+            type: "number"
+            description: ""
+      CurrentGameInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          max_count_commands: 
+            type: "number"
+            description: ""
+          date_begin: 
+            type: "string"
+            description: ""
+          date_end: 
+            type: "string"
+            description: ""
+          age_limit: 
+            type: "number"
+            description: ""
+          type: 
+            type: "boolean"
+            description: ""
+          rating: 
+            type: "number"
+            description: ""
+          min_score: 
+            type: "number"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          count_quests: 
+            type: "number"
+            description: ""
+      DataPlayersDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          rating: 
+            type: "number"
+            description: ""
+          commands_id: 
+            type: "number"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+      GamesDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: ""
+          name: 
+            type: "string"
+            description: ""
+          max_count_commands: 
+            type: "number"
+            description: ""
+          date_begin: 
+            type: "string"
+            description: ""
+          date_end: 
+            type: "string"
+            description: ""
+          age_limit: 
+            type: "number"
+            description: ""
+          type: 
+            type: "boolean"
+            description: ""
+          rating: 
+            type: "number"
+            description: ""
+          min_score: 
+            type: "number"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          created_at: 
+            type: "string"
+            description: ""
+          updated_at: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+          count_register_commands: 
+            type: "number"
+            description: ""
+          nickname_creator: 
+            type: "string"
+            description: ""
+      JudgeGetInfoDto: 
+        properties: 
+          info_games_id: 
+            type: "number"
+            description: ""
+          commands_id: 
+            type: "number"
+            description: ""
+      JudgeSetScoreDto: 
+        properties: 
+          score: 
+            type: "number"
+            description: ""
+          fix_judges_id: 
+            type: "number"
+            description: ""
+          finished_games_id: 
+            type: "number"
+            description: ""
+      PlayerInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: "уникальный идентификатор пользователя"
+          name: 
+            type: "string"
+            description: "имя пользователя"
+          surname: 
+            type: "string"
+            description: "фамилия пользователя"
+          nickname: 
+            type: "string"
+            description: "псевдоним пользователя"
+          ref_image: 
+            type: "string"
+            description: "ссылка на изображение пользователя"
+          phone_num: 
+            type: "string"
+            description: "номер телефона пользователя"
+          date_birthday: 
+            type: "string"
+            description: "дата рождения пользователя"
+          location: 
+            type: "string"
+            description: "местоположение пользователя"
+          date_register: 
+            type: "string"
+            description: "дата регистрации пользователя"
+          users_id: 
+            type: "number"
+            description: "идентификатор пользователей, к которому относится запись"
+          data_players: 
+            $ref: "#/components/schemas/DataPlayersDto"
+          email: 
+            type: "string"
+            description: "адрес электронной почты пользователя"
+          created_at: 
+            type: "string"
+            description: "дата создания записи о пользователе"
+          updated_at: 
+            type: "string"
+            description: "дата последнего обновления записи о пользователе"
+      PlayerInfoRDto: 
+        properties: 
+          name: 
+            type: "string"
+            description: ""
+          surname: 
+            type: "string"
+            description: ""
+          nickname: 
+            type: "string"
+            description: ""
+          phone_num: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""
+          date_birthday: 
+            type: "string"
+            description: ""
+          users_id: 
+            type: "number"
+            description: ""
+      PlayerInfoUpdateDto: 
+        required: 
+          - "email"
+          - "nickname"
+        properties: 
+          email: 
+            type: "string"
+            description: ""
+          nickname: 
+            type: "string"
+            description: ""
+      PlayerJoinGameDto: 
+        required: 
+          - "users_id"
+          - "info_games_id"
+        properties: 
+          users_id: 
+            type: "number"
+            description: ""
+          info_games_id: 
+            type: "number"
+            description: ""
+      PlayerDetachGameDto: 
+        required: 
+          - "users_id"
+          - "session_id"
+        properties: 
+          users_id: 
+            type: "number"
+            description: ""
+          session_id: 
+            type: "string"
+            description: ""
+      PlayerStatisticsDto: 
+        properties: 
+          rating_player: 
+            type: "number"
+            description: ""
+          rating_command: 
+            type: "number"
+            description: ""
+      QuestsIdDto: 
+        properties: 
+          quests_id: 
+            type: "number"
+            description: ""
+      RemoveResultGameDto: 
+        required: 
+          - "exec_quests_id"
+        properties: 
+          exec_quests_id: 
+            type: "number"
+            description: ""
+      SetResultGameDto: 
+        required: 
+          - "exec_quests_id"
+        properties: 
+          exec_quests_id: 
+            type: "number"
+            description: ""
+      TagDto: 
+        properties: 
+          tag: 
+            type: "string"
+            description: ""
+      TagUserInfoDto: 
+        properties: 
+          id: 
+            type: "number"
+            description: "уникальный идентификатор пользователя"
+          name: 
+            type: "string"
+            description: "имя пользователя"
+          surname: 
+            type: "string"
+            description: "фамилия пользователя"
+          nickname: 
+            type: "string"
+            description: "псевдоним пользователя"
+          ref_image: 
+            type: "string"
+            description: "ссылка на изображение пользователя"
+          phone_num: 
+            type: "string"
+            description: "номер телефона пользователя"
+          date_birthday: 
+            type: "string"
+            description: "дата рождения пользователя"
+          location: 
+            type: "string"
+            description: "местоположение пользователя"
+          date_register: 
+            type: "string"
+            description: "дата регистрации пользователя"
+          users_id: 
+            type: "number"
+            description: "идентификатор пользователей, к которому относится запись"
+          rating: 
+            type: "number"
+            description: "рейтинг пользователя"
+          created_at: 
+            type: "string"
+            description: "дата создания записи о пользователе"
+          updated_at: 
+            type: "string"
+            description: "дата последнего обновления записи о пользователе"
+      UrlDto: 
+        properties: 
+          url: 
+            type: "string"
+            description: ""
+      FlagDto: 
+        properties: 
+          flag: 
+            type: "boolean"
+            description: ""
+      SuccessDto: 
+        properties: 
+          success: 
+            type: "boolean"
+            description: ""
+      AccessDto: 
+        required: 
+          - "name_module"
+        properties: 
+          name_module: 
+            type: "string"
+            description: ""
+      AccessTokenDto: 
+        required: 
+          - "access_token"
+        properties: 
+          access_token: 
+            type: "string"
+            description: ""
+      UsersIdDto: 
+        required: 
+          - "users_id"
+        properties: 
+          users_id: 
+            type: "number"
+            description: ""
+          context_user_data: 
+            type: "Object"
+            description: ""
+      ApiError: 
+        properties: 
+          message: 
+            type: "string"
+            description: ""
+          errors: 
+            type: "array"
+            items: 
+              $ref: "#/components/schemas/FieldError"
+      FieldError: 
+        properties: 
+          type: 
+            type: "string"
+            description: ""
+          value: 
+            type: "string"
+            description: ""
+          msg: 
+            type: "string"
+            description: ""
+          path: 
+            type: "string"
+            description: ""
+          location: 
+            type: "string"
+            description: ""

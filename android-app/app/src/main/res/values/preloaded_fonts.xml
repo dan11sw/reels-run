@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/merri_weather_italic</item>
+        <item>@font/pt_serif</item>
+        <item>@font/source_sans_pro_extra_light</item>
+    </array>
+</resources>

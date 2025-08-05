@@ -1,0 +1,10 @@
+node_modules
+# .development.env
+# .production.env
+# .env
+# constants
+logs
+/logs
+./logs
+data/files
+public

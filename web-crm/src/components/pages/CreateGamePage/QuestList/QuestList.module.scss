@@ -1,0 +1,37 @@
+@import "../../../../styles/variables.scss";
+@import "../../../../styles/mixins.scss";
+
+.container {
+    @include flex-block(column, 16px);
+    align-items: center;
+    width: 100%;
+}
+
+.questList {
+    @include flex-block(row, 18px);
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.controls {
+    @include flex-block(row);
+    justify-content: space-between;
+}
+
+.quest {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: $color-dark;
+    width: 432px;
+    margin: 8px;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.controls {
+    @include flex-block(row);
+    justify-content: space-between;
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_game"
+    app:startDestination="@id/navigateGameFragment">
+
+    <fragment
+        android:id="@+id/navigateGameFragment"
+        android:name="com.main.netman.containers.game.fragments.NavigateGameFragment"
+        android:label="fragment_navigate_team"
+        tools:layout="@layout/fragment_navigate_game" >
+        <action
+            android:id="@+id/action_navigateGameFragment_to_findTeamFragment"
+            app:destination="@id/findTeamFragment" />
+        <action
+            android:id="@+id/action_navigateGameFragment_to_leadTeamFragment"
+            app:destination="@id/leadTeamFragment" />
+        <action
+            android:id="@+id/action_navigateGameFragment_to_memberTeamFragment"
+            app:destination="@id/memberTeamFragment" />
+        <action
+            android:id="@+id/action_navigateGameFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_navigateGameFragment_to_searchGameFragment"
+            app:destination="@id/searchGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findTeamFragment"
+        android:name="com.main.netman.containers.game.fragments.FindTeamFragment"
+        android:label="fragment_find_team"
+        tools:layout="@layout/fragment_find_team" >
+        <action
+            android:id="@+id/action_findTeamFragment_to_navigateGameFragment"
+            app:destination="@id/navigateGameFragment" />
+        <action
+            android:id="@+id/action_findTeamFragment_to_viewTeamFragment"
+            app:destination="@id/viewTeamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leadTeamFragment"
+        android:name="com.main.netman.containers.game.fragments.LeadTeamFragment"
+        android:label="fragment_lead_team"
+        tools:layout="@layout/fragment_lead_team" >
+        <action
+            android:id="@+id/action_leadTeamFragment_to_navigateGameFragment"
+            app:destination="@id/navigateGameFragment" />
+        <action
+            android:id="@+id/action_leadTeamFragment_to_gameJoinFragment"
+            app:destination="@id/gameJoinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewTeamFragment"
+        android:name="com.main.netman.containers.game.fragments.ViewTeamFragment"
+        android:label="ViewTeamFragment" >
+        <action
+            android:id="@+id/action_viewTeamFragment_to_findTeamFragment"
+            app:destination="@id/findTeamFragment" />
+        <action
+            android:id="@+id/action_viewTeamFragment_to_navigateGameFragment"
+            app:destination="@id/navigateGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberTeamFragment"
+        android:name="com.main.netman.containers.game.fragments.MemberTeamFragment"
+        android:label="fragment_member_team"
+        tools:layout="@layout/fragment_member_team" >
+        <action
+            android:id="@+id/action_memberTeamFragment_to_navigateGameFragment"
+            app:destination="@id/navigateGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameJoinFragment"
+        android:name="com.main.netman.containers.game.fragments.GameJoinFragment"
+        android:label="GameJoinFragment" >
+        <action
+            android:id="@+id/action_gameJoinFragment_to_leadTeamFragment"
+            app:destination="@id/leadTeamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.main.netman.containers.game.fragments.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_navigateGameFragment"
+            app:destination="@id/navigateGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchGameFragment"
+        android:name="com.main.netman.containers.game.fragments.SearchGameFragment"
+        android:label="fragment_search_game"
+        tools:layout="@layout/fragment_search_game" >
+        <action
+            android:id="@+id/action_searchGameFragment_to_navigateGameFragment"
+            app:destination="@id/navigateGameFragment" />
+    </fragment>
+</navigation>

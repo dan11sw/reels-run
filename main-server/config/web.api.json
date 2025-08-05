@@ -1,0 +1,7 @@
+{
+    "web_api": [
+        "http://localhost:57529",
+        "http://localhost:4000",
+        "http://localhost:5000"
+    ]
+}

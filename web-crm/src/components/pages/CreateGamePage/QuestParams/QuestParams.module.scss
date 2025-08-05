@@ -1,0 +1,15 @@
+@import "../../../../styles/mixins.scss";
+
+.container {
+    @include flex-block(column);
+    width: 35%;
+}
+
+.content {
+    @include flex-block(column, 16px);
+}
+
+.controls {
+    @include flex-block(row);
+    justify-content: space-between;
+}

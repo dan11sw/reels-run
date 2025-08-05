@@ -1,0 +1,28 @@
+import { FC } from "react";
+import styles from "./HintIcon.module.scss";
+
+export interface IHintIconProps {
+    width?: number;
+    height?: number;
+}
+
+const HintIcon: FC<IHintIconProps> = (props) => {
+    const { width = 32, height = 32 } = props;
+
+    return (
+        <>
+            <svg
+                width={`${width}px`}
+                height={`${height}px`}
+                viewBox="0 0 24 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={styles.icon}
+            >
+                <path d="M6.71655 26V24.4408C6.71655 22.2251 5.8271 20.1067 4.54147 18.2635C3.12763 16.2365 1.57842 13.4185 1.76541 11C2.20658 5.29387 6.70744 1 12.375 1C18.0426 1 22.5434 5.29387 22.9846 11C23.1716 13.4185 21.6224 16.2365 20.2085 18.2635C18.9229 20.1067 18.0334 22.2251 18.0334 24.4408V26M6.71655 26V29.5C6.71655 30.3284 7.41877 31 8.285 31H16.465C17.3312 31 18.0334 30.3284 18.0334 29.5V26M6.71655 26H18.0334" stroke="white" stroke-width="1.7" stroke-linejoin="round" />
+            </svg>
+        </>
+    );
+};
+
+export default HintIcon;

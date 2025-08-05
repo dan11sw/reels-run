@@ -1,0 +1,31 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.page {
+    @include flex-block(column, 32px);
+    align-items: center;
+    margin: 8px 128px;
+}
+
+.button {
+    width: 200px !important;
+}
+
+.modal_container {
+    position: relative;
+    height: 100%;
+}
+
+.modal_add_mark {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.modal_holder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}

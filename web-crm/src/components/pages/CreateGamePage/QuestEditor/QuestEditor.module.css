@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+}
+.container h2 {
+  text-align: center;
+}
+
+.quest {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.map {
+  width: 65%;
+  height: 680px;
+}

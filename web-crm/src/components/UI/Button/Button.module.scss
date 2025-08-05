@@ -1,0 +1,25 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.button {
+    height: 42px;
+    width: 100%;
+    border: 1px solid $color-primary-purple;
+    background: $color-primary-purple;
+    border-radius: 4px;
+    align-content: center;
+    color: $color-white;
+    font-size: 18px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $color-hover-purple;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}

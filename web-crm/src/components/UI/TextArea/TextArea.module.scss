@@ -1,0 +1,18 @@
+@import "../../../styles/mixins.scss";
+
+.container {
+    @include flex-block();
+}
+
+.input {
+    resize: none;
+    outline: none;
+    border-radius: 4px;
+    height: 32px;
+    font-size: 18px;
+    height: 128px;
+}
+
+.label {
+    cursor: default;
+}

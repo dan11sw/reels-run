@@ -1,0 +1,34 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.container {
+    @include flex-block();
+}
+
+.column {
+    @include flex-block(row, 32px);
+}
+
+.columnCell {
+    @include flex-block(column);
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+
+    width: 140px;
+    height: 30px;
+
+    p {
+        font-weight: bold;
+        font-size: 18px;
+    }
+}
+
+.body {
+    @include flex-block();
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+    overflow: auto;
+    //max-height: 440px;
+}
