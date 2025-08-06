@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import CreatorRoute from "src/constants/routes/creator.route";
 import { IMarkInfo } from "src/models/ICreatorModel";
 import MarkModal from "src/components/Modals/Marks/MarkModal";
+import MarkAction from "src/store/actions/Map/MarkAction";
+import { IMarkEx } from "src/models/IMarkModel";
 
 export interface IGameItem {
     id: number;
@@ -33,10 +35,15 @@ const MarkListPage: FC<any> = () => {
 
     const [select, setSelect] = useState<number | null>(null);
     const [hover, setHover] = useState<number | null>(null);
-    const [deleteItem, setDeleteItem] = useState<IMarkInfo | null>(null);
+    const [deleteItem, setDeleteItem] = useState<IMarkEx | null>(null);
 
-    const markModalExecute = () => {
+    const markModalExecute = (marks_id?: number) => {
         dispatch(ECreatorAction.getCreatedMarks());
+
+        // ID не может быть нулевым
+        if (marks_id) {
+            setSelect(marks_id);
+        }
     };
 
     /* ------------------ Состояние для контроля модального окна добавления новой записи ------------------ */
@@ -51,7 +58,8 @@ const MarkListPage: FC<any> = () => {
     };
     /* ---------------------------------------------------------------------------------------------------- */
 
-     /* ------------------ Состояние для контроля модального окна редактирования записи ------------------ */
+    /* ------------------ Состояние для контроля модального окна редактирования записи ------------------ */
+    const [editMark, setEditMark] = useState<IMarkEx | null>(null);
     const [openEditMark, setOpenEditMark] = useState(false);
 
     const openEditMarkModal = () => {
@@ -60,6 +68,7 @@ const MarkListPage: FC<any> = () => {
 
     const closeEditMarkModal = () => {
         setOpenEditMark(false);
+        setEditMark(null);
     };
     /* ---------------------------------------------------------------------------------------------------- */
 
@@ -76,7 +85,7 @@ const MarkListPage: FC<any> = () => {
     // Ссылка для связывания с конкретным элементом
     const refOutside = useOutsideClick(outsideClickHandle);
 
-    const deleteItemConfirm = (item: IMarkInfo) => {
+    const deleteItemConfirm = (item: IMarkEx) => {
         setDeleteItem(item);
     };
 
@@ -96,7 +105,7 @@ const MarkListPage: FC<any> = () => {
         setHover(null);
     };
 
-    const renderMarkItem = (item: IMarkInfo) => {
+    const renderMarkItem = (item: IMarkEx) => {
         let defClass: string | null = null;
 
         if (select === item.id) {
@@ -144,11 +153,8 @@ const MarkListPage: FC<any> = () => {
                         color="#ffffff"
                         clickHandler={(e) => {
                             e?.stopPropagation();
-
-                            /*const path = CreatorRoute.EDIT_GAME.replace(":id", item.id.toString());
-
-                            window.scrollTo(0, 0);
-                            navigate(path);*/
+                            setEditMark(item);
+                            openEditMarkModal();
                         }}
                     />
                     <IconRouter.DeleteIcon
@@ -175,21 +181,21 @@ const MarkListPage: FC<any> = () => {
         </div>;
     };
 
-    const deleteGameHandler = useCallback(() => {
+    const deleteMarkHandler = useCallback(() => {
         if (deleteItem) {
-            dispatch(ECreatorAction.deleteGame({
-                info_games_id: deleteItem.id
-            }, () => {
+            dispatch(MarkAction.deleteMark({ id: deleteItem.id }, (id?: number) => {
                 setDeleteItem(null);
-                dispatch(messageQueueAction.addMessage(null, "success", "Игра успешно удалена"));
-                dispatch(ECreatorAction.getCreatedGames());
+                dispatch(messageQueueAction.addMessage(null, "success", `Метка с идентификатором ${id} успешно удалена!`));
+                dispatch(ECreatorAction.getCreatedMarks());
+
+                closeDeleteModal();
             }));
         }
     }, [deleteItem]);
 
     const toolbarDownItems = [
         {
-            action: deleteGameHandler,
+            action: deleteMarkHandler,
             title: "Удалить метку",
             label: "Да",
             width: 64
@@ -245,7 +251,8 @@ const MarkListPage: FC<any> = () => {
             }
 
             {
-                openEditMark && <MarkModal
+                openEditMark && editMark && <MarkModal
+                    data={editMark}
                     openModal={true}
                     closeModal={closeEditMarkModal}
                     callbackExecute={markModalExecute}

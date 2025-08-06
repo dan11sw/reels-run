@@ -13,7 +13,7 @@
         "user": "ssl.net@mail.ru"
     },
     "url": {
-        "client": "http://localhost:57529",
+        "client": "http://localhost:17565",
         "management": "http://localhost:3000",
         "api": "http://10.0.2.2:5000"
     },
@@ -30,6 +30,6 @@
     },
     "log": {
         "sequelize": false,
-        "path": "C:\\Projects\\Development\\reels_run\\logs\\main-server"
+        "path": "C:\\Projects\\Development\\reels-run\\logs\\main-server"
     }
 }

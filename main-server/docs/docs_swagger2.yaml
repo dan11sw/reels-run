@@ -468,6 +468,58 @@
         security: 
           - 
             JWT: []
+    /map/mark/update: 
+      post: 
+        parameters: 
+          - 
+            name: "input"
+            in: "body"
+            description: "Входные данные"
+            required: true
+            schema: 
+              $ref: "#/definitions/MarkCreateDto"
+        description: "Обновление метки в базе данных"
+        tags: 
+          - "Карты"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            schema: 
+              $ref: "#/definitions/MarkCreateDto"
+          default: 
+            description: "Ошибка запроса"
+            schema: 
+              $ref: "#/definitions/ApiError"
+        operationId: "mapMarkUpdate"
+        security: 
+          - 
+            JWT: []
+    /map/mark/delete: 
+      post: 
+        parameters: 
+          - 
+            name: "input"
+            in: "body"
+            description: "Входные данные"
+            required: true
+            schema: 
+              $ref: "#/definitions/MarkIdDto"
+        description: "Удаление метки из базы данных"
+        tags: 
+          - "Карты"
+        responses: 
+          200: 
+            description: "Выходные данные"
+            schema: 
+              $ref: "#/definitions/MarkCreateDto"
+          default: 
+            description: "Ошибка запроса"
+            schema: 
+              $ref: "#/definitions/ApiError"
+        operationId: "mapMarkUpdate"
+        security: 
+          - 
+            JWT: []
     /map/marks: 
       get: 
         parameters: []
@@ -1781,6 +1833,29 @@
           type: "string"
           description: ""
     MarkDto: 
+      properties: 
+        id: 
+          type: "number"
+          description: ""
+        lat: 
+          type: "number"
+          description: ""
+        lng: 
+          type: "number"
+          description: ""
+        location: 
+          type: "string"
+          description: ""
+        created_at: 
+          type: "string"
+          description: ""
+        updated_at: 
+          type: "string"
+          description: ""
+        users_id: 
+          type: "number"
+          description: ""
+    MarkIdDto: 
       properties: 
         id: 
           type: "number"

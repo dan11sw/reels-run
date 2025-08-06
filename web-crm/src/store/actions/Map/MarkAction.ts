@@ -6,7 +6,8 @@ import messageQueueAction from "../MessageQueueAction";
 import apiMainServer from "src/http/http";
 import { FunctionVOID } from "src/types/function";
 import MapApi from "src/constants/api/map.api";
-import { IMark } from "src/models/IMarkModel";
+import { IMark, IMarkId, IMarkModel } from "src/models/IMarkModel";
+import { isHttpStatusValid } from "src/utils/http";
 
 function getFreeMarks(cb?: FunctionVOID) {
   return async function (dispatch: any) {
@@ -15,7 +16,7 @@ function getFreeMarks(cb?: FunctionVOID) {
     try {
       const response = await apiMainServer.get(MapApi.MARKS_FREE);
 
-      if (response.status !== 200 && response.status !== 201) {
+      if (!isHttpStatusValid(response?.status)) {
         dispatch(messageQueueAction.addMessage(response, "error"));
         return;
       }
@@ -30,7 +31,7 @@ function getFreeMarks(cb?: FunctionVOID) {
   };
 }
 
-function createMark(data: IMark, cb?: FunctionVOID) {
+function createMark(data: IMark, cb?: (id?: number) => void) {
   return async function (dispatch: any) {
     dispatch(markSlice.actions.loadingStart());
 
@@ -40,20 +41,60 @@ function createMark(data: IMark, cb?: FunctionVOID) {
         JSON.stringify(data),
       );
 
-      /*const response = await apiMainServer.post(
-        MainApi.SIGN_IN,
-        JSON.stringify(data),
-        {
-          ...HeadersDefaultJSON,
-        }
-      );*/
-
-      if (response.status !== 200 && response.status !== 201) {
+      if (!isHttpStatusValid(response?.status)) {
         dispatch(messageQueueAction.addMessage(response, "error"));
         return;
       }
 
-      cb && cb();
+      cb && cb(response?.data?.id);
+    } catch (e: any) {
+      dispatch(messageQueueAction.errorMessage(e));
+    } finally {
+      dispatch(markSlice.actions.loadingEnd());
+    }
+  };
+}
+
+function updateMark(data: IMarkModel, cb?: (id?: number) => void) {
+  return async function (dispatch: any) {
+    dispatch(markSlice.actions.loadingStart());
+
+    try {
+      const response = await apiMainServer.post(
+        MapApi.MARK_UPDATE,
+        JSON.stringify(data),
+      );
+
+      if (!isHttpStatusValid(response?.status)) {
+        dispatch(messageQueueAction.addMessage(response, "error"));
+        return;
+      }
+
+      cb && cb(response?.data?.id);
+    } catch (e: any) {
+      dispatch(messageQueueAction.errorMessage(e));
+    } finally {
+      dispatch(markSlice.actions.loadingEnd());
+    }
+  };
+}
+
+function deleteMark(data: IMarkId, cb?: (id?: number) => void) {
+  return async function (dispatch: any) {
+    dispatch(markSlice.actions.loadingStart());
+
+    try {
+      const response = await apiMainServer.post(
+        MapApi.MARK_DELETE,
+        JSON.stringify(data),
+      );
+
+      if (!isHttpStatusValid(response?.status)) {
+        dispatch(messageQueueAction.addMessage(response, "error"));
+        return;
+      }
+
+      cb && cb(response?.data?.id);
     } catch (e: any) {
       dispatch(messageQueueAction.errorMessage(e));
     } finally {
@@ -64,7 +105,9 @@ function createMark(data: IMark, cb?: FunctionVOID) {
 
 const MarkAction = {
   getFreeMarks,
-  createMark
+  createMark,
+  updateMark,
+  deleteMark
 };
 
 export default MarkAction;

@@ -11,6 +11,7 @@ export interface IToolbarItem {
     title?: string;
     label?: string;
     width?: number;
+    disabled?: boolean;
 }
 
 export interface IModalProps {
@@ -74,8 +75,8 @@ const Modal: FC<IModalProps> = (props) => {
                         </div>
 
                         <div className={styles.content} style={{
-                            width: `${(width - 30)}px`,
-                            marginLeft: '15px',
+                            width: `${(width - 16 - 7)}px`, // Значение 7 здесь для эстетики (без него тоже норм)
+                            marginLeft: '16px',
                             maxHeight: `${height - 100}px`
                         }}>
                             {children}
@@ -93,6 +94,7 @@ const Modal: FC<IModalProps> = (props) => {
                                                     title={item.title}
                                                     clickHandler={item.action}
                                                     width={item.width}
+                                                    disabled={item.disabled}
                                                 />
                                             </Fragment>
                                         );

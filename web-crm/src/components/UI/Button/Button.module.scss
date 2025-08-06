@@ -14,12 +14,27 @@
     -moz-transition: all 0.5s;
     transition: all 0.5s;
 
-    &:hover {
-        cursor: pointer;
-        background-color: $color-hover-purple;
+    &:disabled {
+        background: $color-primary-purple-disabled;
+
+        &:hover {
+            cursor: pointer;
+            background: $color-primary-purple-disabled;
+        }
+
+        &:active {
+            transform: none;
+        }
     }
 
-    &:active {
-        transform: scale(0.98);
+    &:not(:disabled) {
+        &:hover {
+            cursor: pointer;
+            background-color: $color-hover-purple;
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
     }
 }

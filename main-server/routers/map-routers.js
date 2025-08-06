@@ -7,6 +7,7 @@ import MapRoute from '../constants/routes/map.js';
 import mapController from '../controllers/map-controller.js';
 import MarkDto from '../dtos/map/mark-dto.js';
 import MarkCreateDto from '../dtos/map/mark-create-dto.js';
+import MarkIdDto from '../dtos/map/mark-id-dto.js';
 
 const router = new Router();
 
@@ -32,6 +33,51 @@ router.post(
 
     ],
     mapController.markCreate
+);
+
+/**
+ * Обновление метки в базе данных
+ * @route POST /map/mark/update
+ * @group Карты - Функции для работы с картами
+ * @operationId mapMarkUpdate
+ * @param {MarkCreateDto.model} input.body.required Входные данные
+ * @returns {MarkCreateDto.model} 200 - Выходные данные
+ * @returns {ApiError.model} default - Ошибка запроса
+ * @security JWT
+ */
+router.post(
+    MapRoute.markUpdate,
+    [
+        authMiddleware,
+        check('id', 'Некорректный идентификатор метки').isInt({ min: 1 }),
+        check('users_id', 'Некорректный идентификатор пользователя').isInt({ min: 1 }),
+        check('title', 'Значение title не должно быть пустым').isLength({ min: 1 }),
+        check('location', 'Значение location не должно быть пустым').isLength({ min: 1 }),
+        check('lat', 'Значение latitude должно быть вещественным').isFloat(),
+        check('lng', 'Значение longtitude должно быть вещественным').isFloat()
+
+    ],
+    mapController.markUpdateById
+);
+
+/**
+ * Удаление метки из базы данных
+ * @route POST /map/mark/delete
+ * @group Карты - Функции для работы с картами
+ * @operationId mapMarkUpdate
+ * @param {MarkIdDto.model} input.body.required Входные данные
+ * @returns {MarkCreateDto.model} 200 - Выходные данные
+ * @returns {ApiError.model} default - Ошибка запроса
+ * @security JWT
+ */
+router.post(
+    MapRoute.markDelete,
+    [
+        authMiddleware,
+        check('id', 'Некорректный идентификатор метки').isInt({ min: 1 }),
+        check('users_id', 'Некорректный идентификатор пользователя').isInt({ min: 1 })
+    ],
+    mapController.markDeleteById
 );
 
 /**

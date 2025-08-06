@@ -5,6 +5,7 @@
  * @property {string} location.required
  */
 class MarkCreateDto {
+    id;
     users_id;
     title;
     description;
@@ -13,6 +14,7 @@ class MarkCreateDto {
     location;
 
     constructor(model) {
+        this.id = model.id ?? null;
         this.users_id = model.users_id;
         this.title = model.title ?? "";
         this.description = model.description ?? "";

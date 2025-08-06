@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import styles from "./MarkModal.module.scss";
 import Modal from "src/components/Modal";
 import { InputValueType } from "src/types/input";
-import { IMark } from "src/models/IMarkModel";
+import { IMark, IMarkEx, IMarkModel } from "src/models/IMarkModel";
 import Input from "src/components/UI/Input";
 import { useAppDispatch } from "src/hooks/redux.hook";
 import messageQueueAction from "src/store/actions/MessageQueueAction";
@@ -14,21 +14,23 @@ import useClipboard from "src/hooks/useClipboard";
 import ClipboardIcon from "src/components/Icons/Resources/ClipboardIcon";
 import { isUndefinedOrNull } from "src/types/void_null";
 import { getNumberFloat } from "src/utils/number";
+import { deepEqual } from "src/modules/DeepEqual";
 
 export interface IAddMarkModalProps {
-    id?: number;
+    data?: IMarkEx;
     openModal: boolean;
     closeModal: () => void;
-    callbackExecute?: () => void;
+    callbackExecute?: (marks_id?: number) => void;
 }
 
 export type IMarkDataState = {
-    value: IMark;
-    defaultValue: IMark;
+    value: IMarkEx;
+    defaultValue: IMarkEx;
 }
 
 const markDefault: IMarkDataState = {
     value: {
+        id: -1,
         title: '',
         description: '',
         location: '',
@@ -36,6 +38,7 @@ const markDefault: IMarkDataState = {
         lng: 0
     },
     defaultValue: {
+        id: -1,
         title: '',
         description: '',
         location: '',
@@ -44,13 +47,25 @@ const markDefault: IMarkDataState = {
     }
 };
 
+const genDefaultValue = (data?: IMarkEx): IMarkDataState => {
+    if (!data) {
+        return markDefault;
+    }
+
+    return {
+        value: data,
+        defaultValue: data
+    };
+};
+
 const MarkModal: FC<IAddMarkModalProps> = (props: IAddMarkModalProps) => {
     const {
-        id, openModal, closeModal,
+        data, openModal, closeModal,
         callbackExecute
     } = props;
 
-    const [dataMark, setDataMark] = useState<IMarkDataState>(markDefault);
+    const [dataMark, setDataMark] = useState<IMarkDataState>(genDefaultValue(data));
+    const [modifyMark, setModifyMark] = useState<boolean>(false);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -60,29 +75,35 @@ const MarkModal: FC<IAddMarkModalProps> = (props: IAddMarkModalProps) => {
         }
     }, []);
 
-    const inputChangeHandler = <K extends keyof IMark>(type: K, withDefault: boolean = false) => {
+    useEffect(() => {
+        setModifyMark(deepEqual(dataMark.value, dataMark.defaultValue));
+    }, [dataMark]);
+
+    const inputChangeHandler = <K extends keyof IMarkEx>(type: K) => {
+        const withDefault: boolean = (dataMark.value.id > 0) ? false : true;
+
         return (value: InputValueType) => {
             if (value) {
-                const mark = structuredClone(dataMark); // JSON.parse(JSON.stringify(dataMark)) as IMark;
+                const mark = JSON.parse(JSON.stringify(dataMark)) as IMarkDataState;
 
                 if (typeof mark.value[type] == "string") {
-                    mark.value[type] = String(value) as IMark[K];
+                    mark.value[type] = String(value) as IMarkEx[K];
 
                     if (withDefault) {
-                        mark.defaultValue[type] = String(value) as IMark[K];
+                        mark.defaultValue[type] = String(value) as IMarkEx[K];
                     }
                 } else if (typeof mark.value[type] == "number") {
                     if (String(value).trim().length === 0) {
-                        mark.value[type] = 0 as IMark[K];
+                        mark.value[type] = 0 as IMarkEx[K];
 
                         if (withDefault) {
-                            mark.defaultValue[type] = 0 as IMark[K];
+                            mark.defaultValue[type] = 0 as IMarkEx[K];
                         }
                     } else {
-                        mark.value[type] = Number(value) as IMark[K];
+                        mark.value[type] = Number(value) as IMarkEx[K];
 
                         if (withDefault) {
-                            mark.defaultValue[type] = Number(value) as IMark[K];
+                            mark.defaultValue[type] = Number(value) as IMarkEx[K];
                         }
                     }
                 }
@@ -112,20 +133,31 @@ const MarkModal: FC<IAddMarkModalProps> = (props: IAddMarkModalProps) => {
             return;
         }
 
-        dispatch(MarkAction.createMark(dataMark.value, () => {
-            dispatch(messageQueueAction.addMessage(null, "success", "Новая метка успешно добавлена!"));
-            closeModal();
-            setDataMark(markDefault);
+        if (dataMark.value.id > 0) {
+            dispatch(MarkAction.updateMark(dataMark.value, (marks_id?: number) => {
+                dispatch(messageQueueAction.addMessage(null, "success", `Метка с идентификатором ${dataMark.value.id} обновлена!`));
+                closeModal();
+                setDataMark(markDefault);
 
-            callbackExecute && callbackExecute();
-        }));
+                callbackExecute && callbackExecute(marks_id);
+            }));
+        } else {
+            dispatch(MarkAction.createMark(dataMark.value, (marks_id?: number) => {
+                dispatch(messageQueueAction.addMessage(null, "success", "Новая метка успешно добавлена!"));
+                closeModal();
+                setDataMark(markDefault);
+
+                callbackExecute && callbackExecute(marks_id);
+            }));
+        }
     };
 
     const toolbarDownItems = [
         {
             action: addMarkHandler,
-            title: "Добавить игру",
-            label: "Добавить"
+            title: (dataMark.value.id > 0) ? "Изменить метку" : "Добавить метку",
+            label: (dataMark.value.id > 0) ? "Изменить" : "Добавить",
+            disabled: (dataMark.value.id < 0) ? false : modifyMark
         },
         {
             action: closeModal,

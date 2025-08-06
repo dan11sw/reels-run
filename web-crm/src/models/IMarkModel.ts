@@ -1,3 +1,7 @@
+export interface IMarkId {
+  id: number;
+}
+
 export interface IMarkModel {
   id?: number;
   title?: string;
@@ -13,4 +17,8 @@ export interface IMark {
   lat: number;
   lng: number;
   location: string;
+}
+
+export interface IMarkEx extends IMark {
+  id: number;
 }

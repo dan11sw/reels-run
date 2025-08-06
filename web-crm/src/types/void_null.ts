@@ -6,5 +6,5 @@ export type VOID_NULL = undefined | null;
  * @returns {boolean}
  */
 export function isUndefinedOrNull(value) {
-  return value === null || value === undefined;
+  return (value === null) || (value === undefined);
 }

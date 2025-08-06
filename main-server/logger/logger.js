@@ -68,12 +68,8 @@ const sillyTransport = createRotateTransport("silly");
 
 const logger = createLogger({
     format: combine(
-        timestamp({
-            // format: 'YYYY-MM-DD hh:mm:ss.SSS',
-            format: 'hh:mm:ss.SSS',
-        }),
         printf((info) => {
-            const msg = `${info.timestamp} [${info.level}]: ${info.message}`;
+            const msg = `${DateTime.now().toFormat("HH:mm:ss.SSS")} [${info.level}]: ${info.message}`;
             console.log(msg);
 
             return msg;
